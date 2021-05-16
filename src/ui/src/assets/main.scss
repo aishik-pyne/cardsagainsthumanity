@@ -1,0 +1,105 @@
+@import url("https://fonts.googleapis.com/css2?family=Roboto:wght@700&display=swap");
+$color-pallete-0: #ffffff;
+$color-pallete-1: #f8f9fa;
+$color-pallete-2: #e9ecef;
+$color-pallete-3: #dee2e6;
+$color-pallete-4: #ced4da;
+$color-pallete-5: #adb5bd;
+$color-pallete-6: #6c757d;
+$color-pallete-7: #495057;
+$color-pallete-8: #343a40;
+$color-pallete-9: #212529;
+
+$background-color: $color-pallete-2;
+$answer-card-color: $color-pallete-0;
+$answer-text-color: $color-pallete-9;
+$question-card-color: $color-pallete-9;
+$question-text-color: $color-pallete-0;
+
+body {
+    background-color: $background-color;
+}
+#app {
+    font-family: Roboto;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    text-align: center;
+    color: #f8f9fa;
+    // margin-top: 60px;
+    height: 100vh;
+}
+.btn {
+    // background-color: black;
+}
+.box {
+    margin: 6px 8px;
+    padding: 20px;
+    justify-content: center;
+    align-items: flex-start;
+    display: flex;
+}
+.card {
+    @extend .box;
+    // max-width: 256px;
+    height: 350px;
+    width: 250px;
+    // height: 7rem;
+    // width: 5rem;
+    border-radius: 0.8rem;
+    font-size: 2rem;
+    // font-weight: 500;
+
+    // Shadow
+    box-shadow: 0.1rem 0.1rem $color-pallete-5;
+    text-align: left;
+
+    p {
+        margin: 0;
+    }
+}
+.question {
+    @extend .card;
+    color: $question-text-color;
+    background-color: $question-card-color;
+}
+.answer {
+    @extend .card;
+    color: $answer-text-color;
+    background-color: $answer-card-color;
+}
+
+.scoreboard {
+    
+    .scoreline {
+        @extend .box;
+        align-items: center;
+        font-size: 2rem;
+        margin: 10px;
+        padding: 15px;
+        min-height: 40px;
+        border-radius: 0.8rem;
+        color: $color-pallete-9;
+        background-color: $color-pallete-1;
+        flex-direction: row;
+        display: flex;
+        .name {
+            display: flex;
+            flex-grow: 4;
+        }
+        .score {
+            display: flex;
+        }
+    }
+    .round {
+        @extend .scoreline;
+        background-color: $color-pallete-3;
+        color: $color-pallete-9;
+        margin-bottom: 3rem;
+        font-size: 3rem;
+    }
+    .cardzar {
+        @extend .scoreline;
+        color: $color-pallete-1;
+        background-color: $color-pallete-9;
+    }
+}
