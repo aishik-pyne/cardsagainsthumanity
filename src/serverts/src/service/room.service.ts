@@ -7,13 +7,10 @@ const roomLogger = logger.child({ service: "Room" });
 const gameLogger = logger.child({ service: "Game" });
 const roomsList: Map<string, Room> = new Map<string, Room>();
 export function getRoom(roomId): Room {
-    // perform shallow copy
-    // const room = JSON.parse(JSON.stringify(roomsList[roomId]));
-    // for (let i = 0; i < room.players.length; i++) {
-    //     room.players[i] = getPlayer(room.players[i]);
-    // }
-    roomLogger.info(`Get Room ${roomId}`);
-    return roomsList.get(roomId);
+    // roomLogger.info(`Get Room ${roomId}`);
+    const room = roomsList.get(roomId);
+
+    return room;
 }
 export function createRoom(player: Player): Room {
     const room: Room = {
@@ -58,21 +55,19 @@ export function startGame(roomId) {
 
     return room;
 }
-
-function nextTurn(room: Room) {
+export function nextTurn(room: Room) {
     if (room.game == null) {
-        const answerChoices: Map<string, string[]> = new Map<string, string[]>();
+        const answerChoices: Record<string, string[]> = {};
         room.players.forEach((player) => {
-            answerChoices.set(player.id, getAnswers(8));
+            answerChoices[player.id] = getAnswers(8);
         });
         room.game = {
             turn: 1,
             cardzar: room.admin,
             question: getQuestions(1)[0],
             answerChoices: answerChoices,
-            answers: new Map(),
+            answers: {},
         };
-        
     } else {
         room.game.turn += 1;
         room.game.question = getQuestions(1)[0];
@@ -80,12 +75,15 @@ function nextTurn(room: Room) {
         // Replenish the cards
         room.players.forEach((player) => {
             if (player.id != room.game.cardzar.id) {
-                room.game.answerChoices.get(player.id).push(getAnswers(1)[0]);
+                room.game.answerChoices[player.id].push(getAnswers(1)[0]);
             }
         });
 
         // Rotate the Cardzar
         room.game.cardzar = room.players[(room.players.findIndex((p) => p.id == room.game.cardzar.id) + 1) % room.players.length];
+
+        // Reset Answer Choices
+        room.game.answers = {};
     }
     gameLogger.info(`Turn ${room.game.turn} Cardzar ${room.game.cardzar.name}`);
 }
@@ -93,11 +91,23 @@ export function chooseAnswer(roomId: string, player: Player, answerIdx) {
     // Check player is not cardzar
     // Block action if card already chosen
     const room: Room = roomsList.get(roomId);
-    if (room.state == RoomState.Started && player.id != room.game.cardzar.id) {
-        const answer: string = room.game.answerChoices.get(player.id)[answerIdx];
+    if (room.state == RoomState.Started && player.id != room.game.cardzar.id && !(player.id in room.game.answers)) {
+        const answer: string = room.game.answerChoices[player.id][answerIdx];
+        room.game.answerChoices[player.id].splice(answerIdx, 1);
+        room.game.answers[player.id] = answer;
     }
 }
-export function pickBestAnswer(roomId) {}
+export function pickBestAnswer(roomId: string, player: Player, bestanswerPlayerIdx: string) {
+    const room: Room = roomsList.get(roomId);
+    if (
+        room.state == RoomState.Started &&
+        player.id == room.game.cardzar.id &&
+        Object.keys(room.game.answers).length >= room.players.length -1
+    ) {
+        nextTurn(room);
+        gameLogger.info(`Turn Winner ${room.players[bestanswerPlayerIdx]}`);
+    }
+}
 export function cardzarEndTurn() {}
 
 function generateRoomId() {

@@ -54,13 +54,12 @@ const io = new Server(server, {
     },
     allowEIO3: true,
 });
-import { createRoom, joinRoom, startGame, getRoom, leaveRoom } from "./service/room.service";
+import { createRoom, joinRoom, startGame, getRoom, leaveRoom, chooseAnswer, pickBestAnswer } from "./service/room.service";
 import { createPlayer, setPlayerName, deletePlayer } from "./service/players.service";
 import { Room } from "./models/room";
 import { Player } from "./models/player";
 
 io.on("connection", function (socket) {
-    // console.log(`A user connected with socket id ${socket.id}`);
     let player: Player = createPlayer(socket.handshake.query.name);
     let room: Room = null;
     socket.emit("PLAYER_INFO", player);
@@ -74,6 +73,7 @@ io.on("connection", function (socket) {
         room = createRoom(player);
         socket.join(`room-${room.id}`);
         socket.emit("CREATED_ROOM", room.id);
+
         io.to(`room-${room.id}`).emit("ROOM_INFO", getRoom(room.id));
     });
 
@@ -81,7 +81,7 @@ io.on("connection", function (socket) {
         room = joinRoom(roomId, player);
         socket.join(`room-${room.id}`);
         socket.emit("JOINED_ROOM", room.id);
-        io.to(`room-${room.id}`).emit("ROOM_INFO", getRoom(room.id));
+        emitRoomInfo()
     });
 
     socket.on("LEAVE_ROOM", function () {
@@ -102,9 +102,19 @@ io.on("connection", function (socket) {
 
     socket.on("START_GAME", function () {
         startGame(room.id);
-        io.to(`room-${room.id}`).emit("ROOM_INFO", getRoom(room.id));
+        emitRoomInfo()
     });
+    socket.on("PICK_CARD_TO_ANSWER", function (answerIdx) {
+        chooseAnswer(room.id, player, answerIdx);
+        emitRoomInfo()
+    });
+    socket.on("PICK_CARD_AS_BEST_ANSWER", function (bestanswerPlayerIdx) {
+        console.log("bestanswerPlayerIdx");
+        console.log(bestanswerPlayerIdx);
 
+        pickBestAnswer(room.id, player, bestanswerPlayerIdx);
+        emitRoomInfo()
+    });
     socket.on("disconnect", function () {
         if (room) {
             leaveRoom(room.id, player.id);
@@ -113,6 +123,12 @@ io.on("connection", function (socket) {
         }
         deletePlayer(player.id);
     });
+
+    function emitRoomInfo() {
+        if (room) {
+            io.to(`room-${room.id}`).emit("ROOM_INFO", getRoom(room.id));
+        }
+    }
 });
 
 /**

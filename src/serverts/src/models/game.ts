@@ -4,7 +4,7 @@ export interface Game {
     turn: number,
     cardzar: Player,
     question: string,
-    answerChoices: Map<string, string[]>,
-    answers: Map<string, string>
+    answerChoices: Record<string, string[]>,
+    answers: Record<string, string>
 
 }
