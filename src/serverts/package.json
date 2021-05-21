@@ -1,0 +1,58 @@
+{
+  "name": "server",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "build": "npm-run-all clean copydata transpile",
+    "start": "NODE_ENV=development ts-node src/index.ts",
+    "copydata": "copyfiles data/*.txt dist",
+    "dev": "nodemon",
+    "serve": "node ./dist/index.js",
+    "transpile": "tsc",
+    "clean": "rimraf dist"
+  },
+  "babel": {
+    "presets": [
+      "@babel/preset-env"
+    ]
+  },
+  "nodemonConfig": {
+    "exec": "npm run start",
+    "watch": [
+      "src/*"
+    ],
+    "ignore": [
+      "**/__tests__/**",
+      "*.test.js",
+      "*.spec.js"
+    ],
+    "ext": "js html ts json"
+  },
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "@babel/cli": "^7.13.16",
+    "@babel/core": "^7.14.2",
+    "@babel/preset-env": "^7.14.2",
+    "copyfiles": "^2.4.1",
+    "nodemon": "^2.0.7",
+    "npm-run-all": "^4.1.5",
+    "rimraf": "^3.0.2"
+  },
+  "dependencies": {
+    "cors": "^2.8.5",
+    "dev": "^0.1.3",
+    "express": "^4.17.1",
+    "faker": "^5.5.3",
+    "http-errors": "^1.8.0",
+    "jsonwebtoken": "^8.5.1",
+    "morgan": "^1.10.0",
+    "socket.io": "^4.1.1",
+    "ts-node": "^9.1.1",
+    "tslint": "^6.1.3",
+    "typescript": "^4.2.4",
+    "uuid": "^8.3.2",
+    "winston": "^3.3.3"
+  }
+}
