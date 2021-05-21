@@ -1,6 +1,10 @@
 <template>
   <div class="card answer">
-    <p>{{ answer }}</p>
+    <div class="card-content">
+      <div class="h1 is-size-4">
+        <p>{{ answer }}</p>
+      </div>
+    </div>
   </div>
 </template>
 

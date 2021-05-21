@@ -18,36 +18,36 @@
 export default {
   name: "ScoreBoard",
   props: {
-    // players: {
-    //   type: Object,
-    //   required: true,
-    // },
+    players: {
+      type: Array,
+      required: true,
+    },
   },
   data() {
     return {
       round: 3,
-      players: [
-        {
-          name: "Pinney",
-          score: 4,
-          cardzar: true,
-        },
-        {
-          name: "BuchoBoy",
-          score: 2,
-          cardzar: false,
-        },
-        {
-          name: "PaulnAll",
-          score: 1,
-          cardzar: false,
-        },
-        {
-          name: "Obhi",
-          score: 2,
-          cardzar: false,
-        },
-      ],
+      // players: [
+      //   {
+      //     name: "Pinney",
+      //     score: 4,
+      //     cardzar: true,
+      //   },
+      //   {
+      //     name: "BuchoBoy",
+      //     score: 2,
+      //     cardzar: false,
+      //   },
+      //   {
+      //     name: "PaulnAll",
+      //     score: 1,
+      //     cardzar: false,
+      //   },
+      //   {
+      //     name: "Obhi",
+      //     score: 2,
+      //     cardzar: false,
+      //   },
+      // ],
     };
   },
 };

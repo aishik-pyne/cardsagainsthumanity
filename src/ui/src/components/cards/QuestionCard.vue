@@ -1,6 +1,10 @@
 <template>
   <div class="card question">
-    <p>{{ question }}</p>
+    <div class="card-content">
+      <div class="h1 is-size-4">
+        <p>{{ question }}</p>
+      </div>
+    </div>
   </div>
 </template>
 
@@ -13,5 +17,5 @@ export default {
       required: true,
     },
   },
-}
+};
 </script>

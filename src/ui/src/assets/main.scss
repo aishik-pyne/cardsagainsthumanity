@@ -24,82 +24,115 @@ body {
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
     text-align: center;
-    color: #f8f9fa;
+    color: $color-pallete-9;
     // margin-top: 60px;
     height: 100vh;
 }
-.btn {
-    // background-color: black;
-}
-.box {
-    margin: 6px 8px;
-    padding: 20px;
-    justify-content: center;
-    align-items: flex-start;
-    display: flex;
-}
-.card {
-    @extend .box;
-    // max-width: 256px;
-    height: 350px;
-    width: 250px;
-    // height: 7rem;
-    // width: 5rem;
-    border-radius: 0.8rem;
-    font-size: 2rem;
-    // font-weight: 500;
+// h1 {
+//     font-size: 4rem;
+// }
+// .box {
+//     margin: 6px 8px;
+//     padding: 20px;
 
-    // Shadow
-    box-shadow: 0.1rem 0.1rem $color-pallete-5;
-    text-align: left;
+//     border-radius: 0.8rem;
+//     font-size: 2rem;
 
-    p {
-        margin: 0;
-    }
-}
-.question {
-    @extend .card;
+//     justify-content: center;
+//     align-items: flex-start;
+//     display: flex;
+// }
+
+// input {
+//     @extend .box;
+//     background-color: $color-pallete-9;
+//     color: $color-pallete-1;
+// }
+// .button {
+//     @extend .box;
+//     background-color: $color-pallete-9;
+//     color: $color-pallete-1;
+// }
+// .card {
+//     @extend .box;
+//     // max-width: 256px;
+//     height: 350px;
+//     width: 250px;
+//     // height: 7rem;
+//     // width: 5rem;
+    
+//     // font-weight: 500;
+
+//     // Shadow
+//     box-shadow: 0.1rem 0.1rem $color-pallete-5;
+//     text-align: left;
+
+//     p {
+//         margin: 0;
+//     }
+// }
+.card.question {
+    $card-color: $question-text-color;
+    $card-background-color: $question-card-color;
+    // @extend .card;
     color: $question-text-color;
     background-color: $question-card-color;
 }
 .answer {
-    @extend .card;
-    color: $answer-text-color;
-    background-color: $answer-card-color;
+    min-height: 300px;
+    // @extend .card;
+    // color: $answer-text-color;
+    // background-color: $answer-card-color;
 }
 
-.scoreboard {
+// .scoreboard {
     
-    .scoreline {
-        @extend .box;
-        align-items: center;
-        font-size: 2rem;
-        margin: 10px;
-        padding: 15px;
-        min-height: 40px;
-        border-radius: 0.8rem;
-        color: $color-pallete-9;
-        background-color: $color-pallete-1;
-        flex-direction: row;
-        display: flex;
-        .name {
-            display: flex;
-            flex-grow: 4;
-        }
-        .score {
-            display: flex;
-        }
-    }
-    .round {
-        @extend .scoreline;
-        background-color: $color-pallete-3;
-        color: $color-pallete-9;
-        margin-bottom: 3rem;
-        font-size: 3rem;
-    }
-    .cardzar {
-        @extend .scoreline;
-        color: $color-pallete-1;
-        background-color: $color-pallete-9;
-    }
-}
+//     .scoreline {
+//         @extend .box;
+//         align-items: center;
+//         font-size: 2rem;
+//         margin: 10px;
+//         padding: 15px;
+//         min-height: 40px;
+//         border-radius: 0.8rem;
+//         color: $color-pallete-9;
+//         background-color: $color-pallete-1;
+//         flex-direction: row;
+//         display: flex;
+//         .name {
+//             display: flex;
+//             flex-grow: 4;
+//         }
+//         .score {
+//             display: flex;
+//         }
+//     }
+//     .round {
+//         @extend .scoreline;
+//         background-color: $color-pallete-3;
+//         color: $color-pallete-9;
+//         margin-bottom: 3rem;
+//         font-size: 3rem;
+//     }
+//     .cardzar {
+//         @extend .scoreline;
+//         color: $color-pallete-1;
+//         background-color: $color-pallete-9;
+//     }
+// }
+
+
+
+// Import only what you need from Bulma
+// @import "../../node_modules/bulma/sass/utilities/_all.sass";
+// @import "../../node_modules/bulma/sass/base/_all.sass";
+// @import "../../node_modules/bulma/sass/elements/button.sass";
+// @import "../../node_modules/bulma/sass/elements/container.sass";
+// @import "../../node_modules/bulma/sass/elements/title.sass";
+// @import "../../node_modules/bulma/sass/form/_all.sass";
+// @import "../../node_modules/bulma/sass/components/navbar.sass";
+// @import "../../node_modules/bulma/sass/layout/hero.sass";
+// @import "../../node_modules/bulma/sass/layout/section.sass";
+
+
+@import "../../node_modules/bulma/bulma.sass"

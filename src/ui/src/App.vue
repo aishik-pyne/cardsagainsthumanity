@@ -1,31 +1,33 @@
 <template>
   <div id="app">
-    <GamePage></GamePage>
-    <!-- <QuestionCard :question="question"></QuestionCard>
-    <img alt="Vue logo" src="./assets/logo.png">
-    <HelloWorld msg="Welcome to Your Vue.js App"/> -->
+    <div class="section">
+      <router-view :player="player"></router-view>
+    </div>
   </div>
 </template>
 
 <script>
-// import HelloWorld from './components/HelloWorld.vue'
-// import QuestionCard from './components/cards/QuestionCard.vue'
-import GamePage from './components/pages/Game.vue'
-
 export default {
-  name: 'App',
-  components: {
-    // HelloWorld,
-    // QuestionCard,
-    GamePage
+  name: "App",
+  sockets: {
+    PLAYER_INFO: function (player) {
+      console.log("PLAYER INFO RECEIVED");
+      console.log(player);
+      this.player = player;
+      localStorage.setItem("name", this.player.name);
+    },
   },
   data() {
     return {
-      question: "What is the most difficult position?"
-    }
-  }
-}
+      player: {
+        name: "",
+        id: "",
+      },
+    };
+  },
+};
 </script>
+
 <style lang="scss">
-@import './assets/main.scss';
+@import "./assets/main.scss";
 </style>
